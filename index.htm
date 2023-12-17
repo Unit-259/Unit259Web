@@ -112,7 +112,7 @@
     <i class="em em-warning" aria-role="presentation" aria-label="WARNING SIGN"></i>
     <span class="folder-label">Scripts</span>
 </div>
-<div class="folder-icon" style="left: 2vw; top: 40vh;" onclick="openFolder('Files')">
+<div class="folder-icon" style="left: 2vw; top: 40vh;" onclick="openPatreon()">
     <i class="em em-dollar" aria-role="presentation" aria-label="DOLLAR"></i>
     <span class="folder-label">Patreon</span>
 </div>
@@ -294,6 +294,10 @@
             }
         });
 
+        function openPatreon() {
+            window.open('https://patreon.com/Unit259', '_blank');
+        }
+        
         function openFolder(folderName) {
             alert("Coming soon: " + folderName);
             // Implement the logic to handle the folder opening, like displaying contents or navigating to another page
