@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Base64 Encoder/Decoder</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        textarea {
+            width: 900px;
+            height: 300px;
+            margin: 10px;
+            color: #0f0;
+            background-color: #000;
+            border: 1px solid #0f0;
+        }
+        button {
+            margin: 10px;
+            padding: 5px 15px;
+            background-color: #0f0;
+            color: #000;
+            border: 1px solid #0f0;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0c0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Base64 Encoder/Decoder</h2>
+    <textarea id="inputText" placeholder="Enter text here..." oninput="clearOutput()"></textarea><br>
+    <button onclick="encode()">Encode</button>
+    <button onclick="decode()">Decode</button><br>
+    <textarea id="outputText" placeholder="Result..."></textarea>
+
+    <script>
+        function encode() {
+            var input = document.getElementById('inputText').value;
+            var output = btoa(input);
+            document.getElementById('outputText').value = output;
+        }
+
+        function decode() {
+            try {
+                var input = document.getElementById('inputText').value;
+                var output = atob(input);
+                document.getElementById('outputText').value = output;
+            } catch(e) {
+                document.getElementById('outputText').value = 'Invalid Base64 string!';
+            }
+        }
+
+        function clearOutput() {
+            if (document.getElementById('inputText').value === '') {
+                document.getElementById('outputText').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

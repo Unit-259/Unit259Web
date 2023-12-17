@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hacker Text Box</title>
+    <meta charset="UTF-8"> <!-- Ensure UTF-8 encoding -->
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+            margin-top: 20px;
+            color: #0f0;
+            background-color: #000;
+            border: 1px solid #0f0;
+        }
+        .status-container {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+        .emoji { /* Separate style for emojis */
+            font-family: initial; /* Reset to default emoji font */
+        }
+    </style>
+</head>
+<body>
+    <div id="charCount">0</div>
+    <textarea id="textBox" oninput="updateStatus()"></textarea>
+
+    <div class="status-container">
+        <span id="runBoxStatus" class="emoji">✅</span> RunBox
+        <span id="shortcutStatus" class="emoji">✅</span> Shortcut
+    </div>
+
+    <script>
+        function updateStatus() {
+            var text = document.getElementById('textBox').value;
+            var charCount = text.length;
+
+            document.getElementById('charCount').innerText = charCount;
+
+            document.getElementById('runBoxStatus').textContent = charCount <= 259 ? '✅' : '❌';
+            document.getElementById('shortcutStatus').textContent = charCount <= 4096 ? '✅' : '❌';
+        }
+    </script>
+</body>
+</html>

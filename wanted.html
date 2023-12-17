@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Intruder Alert</title>
+    <style>
+        body {
+            background: tan;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+        }
+
+        .wanted-poster {
+            border: 5px solid black;
+            background: #f8f8d2;
+            padding: 20px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .wanted-poster h1 {
+            font-size: 50px;
+            margin-bottom: 0;
+        }
+
+        .wanted-poster h2 {
+            font-size: 25px;
+            margin-top: 5px;
+            color: red;
+        }
+
+        .details {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .details p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        #emoji-container {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="wanted-poster">
+        <div id="emoji-container"></div> <!-- Emoji Container -->
+        <h1>Wanted</h1>
+        <h2>For Suspicious Network Activity</h2>
+        <div class="details">
+            <p><strong>IP Address:</strong> 136.243.53.35</p>
+            <p><strong>Attempted Access:</strong> 45.56.115.82 (Port 80)</p>
+            <p><strong>HTTP Request:</strong> POST /send_config_test.php</p>
+            <p><strong>Parameters:</strong> 45.56.115.82;johnino_rap1@hotmail.com;...</p>
+            <p><strong>Authorization:</strong> worker:W0rkEr@2301++</p>
+            <p><strong>User-Agent:</strong> curl/7.61.1</p>
+            <p><strong>Host:</strong> 45.56.115.82</p>
+            <p><strong>Action Needed:</strong> Security Review, Credential Change, Network Monitoring</p>
+        </div>
+    </div>
+
+    <script>
+        const emojiContainer = document.getElementById('emoji-container');
+        const emojis = ['🚨', '🔍', '💻', '🔒']; // List of emojis to cycle through
+        let currentEmojiIndex = 0;
+
+        function updateEmoji() {
+            emojiContainer.textContent = emojis[currentEmojiIndex];
+            currentEmojiIndex = (currentEmojiIndex + 1) % emojis.length; // Cycle through the emojis
+        }
+
+        setInterval(updateEmoji, 1000); // Change emoji every 1000ms (1 second)
+        updateEmoji(); // Initialize with the first emoji
+    </script>
+</body>
+</html>

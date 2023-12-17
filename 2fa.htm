@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Two-Factor Authentication Demo</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+/* Other styles for login form */
+#fakePhone {
+    width: 200px;
+    height: 400px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    position: fixed;
+    right: 50px;
+    top: 50px;
+}
+#loginForm {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+input[type="text"], input[type="password"], button {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    opacity: 0.8;
+}
+
+.message {
+    background-color: #007bff;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 5px 0;
+    display: inline-block;
+}
+
+    </style>
+</head>
+<body>
+
+    <div id="loginForm">
+<h2>Two-Factor Authentication Demo</h2>
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<button onclick="request2FACode()">Login</button>
+<div id="2FADiv" style="display:none;">
+    <input type="text" id="code" placeholder="Enter 2FA Code">
+    <button onclick="verify2FA()">Verify</button>
+</div>
+
+    </div>
+
+    <div id="fakePhone">
+        <div id="messageArea">
+            <!-- Messages will appear here -->
+        </div>
+    </div>
+
+    <script>
+ function sendTextMessage(message) {
+    var messageArea = document.getElementById('messageArea');
+    var newMessage = document.createElement('div');
+    newMessage.classList.add('message');
+    newMessage.textContent = message;
+    messageArea.appendChild(newMessage);
+}
+
+function request2FACode() {
+    // Simulate sending a 2FA code
+    document.getElementById('2FADiv').style.display = 'block';
+
+    // Simulate sending a text message
+    sendTextMessage('Your 2FA code is: 123456');
+}
+
+function verify2FA() {
+    var code = document.getElementById('code').value;
+    // Add logic to verify the 2FA code
+
+    // Send a message to the phone
+    sendTextMessage('Login Successful!');
+}
+    </script>
+
+</body>
+</html>

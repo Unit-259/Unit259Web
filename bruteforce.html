@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ff00;
+            text-align: center;
+        }
+        .warning-box {
+            border: 2px solid yellow;
+            margin: 20px auto;
+            padding: 10px;
+            width: 60%;
+            color: yellow;
+        }
+        #passwordField, button {
+            margin: 10px;
+            padding: 15px 20px; /* Increased padding */
+            background-color: #303030;
+            color: white;
+            border: 1px solid #00ff00;
+            font-size: 16px; /* Larger font size */
+        }
+        #result {
+            margin: 10px;
+            color: red;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="warning-box">
+        Warning: Brute force attacks are a method used by hackers to crack passwords by systematically trying every possible combination of characters. This type of attack exploits weak passwords that are short or lack complexity. The time to crack a password increases exponentially with each additional character, especially when the password includes a mix of letters, numbers, and symbols. While powerful computing resources can speed up brute-force attacks, using strong, unique passwords and enabling additional security measures like two-factor authentication can significantly enhance your security. Remember, the security of your accounts is only as strong as your weakest password. Always prioritize creating passwords that are difficult to guess or brute-force.
+    </div>
+
+    <input type="text" id="passwordField" placeholder="Enter your password">
+    <button onclick="calculateTime()">Check</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateTime() {
+            var password = document.getElementById('passwordField').value;
+            var time = estimateBruteForceTime(password);
+            document.getElementById('result').innerText = 'Estimated time to brute force: ' + time + ' seconds';
+        }
+
+        function estimateBruteForceTime(password) {
+            return password.length * 0.1; // Simple estimation
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Powershell Script Minimizer</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            text-align: center;
+            padding: 20px;
+        }
+        input[type="text"], button {
+            width: 80%;
+            padding: 10px;
+            margin-top: 20px;
+            color: #0f0;
+            background-color: #000;
+            border: 1px solid #0f0;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            cursor: pointer;
+            background-color: #333;
+        }
+        button:hover {
+            background-color: #444;
+        }
+        #result, #loadingIndicator {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1a1a1a;
+            border: 1px solid #0f0;
+            text-align: left;
+            white-space: pre;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+        #loadingIndicator {
+            color: #ff0; /* Yellow color for the loading indicator */
+        }
+        code {
+            display: block;
+            margin: 0;
+            padding: 0;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+        }
+        .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .checkbox {
+            color: #0f0;
+            font-size: 14px;
+        }
+        .checkbox input {
+            margin-right: 5px;
+        }
+        .footer {
+            margin-top: 30px;
+            color: #0f0;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #ff0; /* Yellow color for links */
+        }
+    </style>
+</head>
+<body>
+    <h2>Powershell Script Minimizer</h2>
+    <input type="text" id="urlInput" placeholder="Enter URL here">
+
+    <div class="checkbox-container">
+        <label class="checkbox"><input type="checkbox" id="parameters" value="p"> Parameters</label>
+        <label class="checkbox"><input type="checkbox" id="cmdlets" value="c"> Cmdlets</label>
+        <label class="checkbox"><input type="checkbox" id="comments" value="r"> Comments</label>
+        <label class="checkbox"><input type="checkbox" id="whiteLines" value="w"> WhiteLines</label>
+        <label class="checkbox"><input type="checkbox" id="variables" value="v"> Variables</label>
+        <label class="checkbox"><input type="checkbox" id="functions" value="f"> Functions</label>
+        <label class="checkbox"><input type="checkbox" id="oneLiner" value="1"> One Liner</label>
+    </div>
+
+    <button onclick="fetchData()">minimize</button>
+
+    <div id="loadingIndicator">Loading...</div>
+    <div id="result">
+        <code id="output"></code>
+    </div>
+
+    <div class="footer">
+        <p>Brought to you by: I am Jakoby & InfoSecREDD</p>
+        <p>Support them on Patreon: <a href="https://www.patreon.com/unit259" target="_blank">Unit 259 Patreon</a></p>
+    </div>
+
+    <script>
+        function fetchData() {
+            var userInputUrl = document.getElementById('urlInput').value;
+            var eParam = '';
+
+            ['parameters', 'cmdlets', 'comments', 'whiteLines', 'variables', 'functions', 'oneLiner'].forEach(function(id) {
+                var checkbox = document.getElementById(id);
+                if (checkbox && checkbox.checked) {
+                    eParam += checkbox.value;
+                }
+            });
+
+            if (userInputUrl && eParam) {
+                document.getElementById('loadingIndicator').style.display = 'block';
+                document.getElementById('result').style.display = 'none';
+
+                var apiUrl = `https://shellsync.wtf/api1/mini?key=pubminimize&e=${eParam}&u=${encodeURIComponent(userInputUrl)}`;
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('output').textContent = data.trim();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('output').textContent = 'Failed to fetch data.';
+                });
+            } else {
+                alert('Please enter a URL and select at least one option');
+            }
+        }
+    </script>
+</body>
+</html>

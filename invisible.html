@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #000000; /* Black background */
+            color: #00FF00; /* Lime green text */
+            font-family: 'Courier New', monospace; /* Monospaced font */
+        }
+
+        .hacker-button {
+            background-color: #003300; /* Dark green background */
+            max-height: 50px; /* Maximum height */
+            color: #00FF00; /* Lime green text */
+            border: 2px solid #33FF57; /* Bright green border */
+            text-transform: uppercase;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .hacker-button:hover {
+            background-color: #005500;
+        }
+
+        .title {
+            text-align: center;
+            color: #00FF00; /* Lime green text */
+        }
+
+        .table-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .table {
+            max-width: 600px; /* Maximum width of the table */
+            margin: auto;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table td, .table th {
+            border: 1px solid #33FF57;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .button {
+            background-color: #003300; /* Dark green background */
+            color: #00FF00; /* Lime green text */
+            border: 1px solid #33FF57; /* Bright green border */
+            cursor: pointer;
+            padding: 5px 10px; /* Uniform padding for buttons */
+        }
+
+        .button:hover {
+            background-color: #005500; /* Slightly lighter green on hover */
+        }
+    </style>
+    <script>
+        function copyToClipboard(element) {
+            var text = element.getAttribute('data-clipboard-text');
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Copying to clipboard was successful!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <section class="section pt-0">
+        <h3 class="title">List of Invisible Unicode Characters</h3>
+        <div class="table-container">
+            <table class="table">
+
+
+  <a href="https://www.patreon.com/Unit259" class="hacker-button">SUPPORT US ON PATREON</a>
+
+                <tr>
+                    <td>U+0009 CHARACTER TABULATION</td>
+                    <td>
+                        <button class="button copy-button" data-clipboard-text="&#x0009;" onclick="copyToClipboard(this)">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>U+0020 SPACE</td>
+                    <td>
+                        <button class="button copy-button" data-clipboard-text="&#x0020;" onclick="copyToClipboard(this)">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>U+00A0 NO-BREAK SPACE</td>
+                    <td>
+                        <button class="button copy-button" data-clipboard-text="&#x00A0;" onclick="copyToClipboard(this)">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>U+00AD SOFT HYPHEN</td>
+                    <td>
+                        <button class="button copy-button" data-clipboard-text="&#x00AD;" onclick="copyToClipboard(this)">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>U+U34F COMBINING GRAPHEME JOINER</td>
+                    <td>
+                        <button class="button copy-button" data-clipboard-text="&#xU34F;" onclick="copyToClipboard(this)">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </div>
+    </section>
+</body>
+</html>

