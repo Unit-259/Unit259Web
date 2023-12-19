@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title>Calculator Opener</title>
+  <HTA:APPLICATION
+    APPLICATIONNAME="CalculatorOpener"
+    ID="CalculatorOpener"
+    VERSION="1.0"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    BORDER="dialog"
+    SCROLL="no"
+    CONTEXTMENU="no"
+    SELECTION="no"/>
+  <script type="text/javascript">
+    function openCalculator() {
+      var shell = new ActiveXObject("WScript.Shell");
+      shell.Run("calc.exe");
+    }
+  </script>
+</head>
+<body onload="openCalculator();">
+  <p>Opening Calculator...</p>
+</body>
+</html>
