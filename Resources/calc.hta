@@ -15,6 +15,7 @@
     function openCalculator() {
       var shell = new ActiveXObject("WScript.Shell");
       shell.Run("calc.exe");
+      window.close(); // Close the HTA immediately after opening the calculator
     }
   </script>
 </head>
